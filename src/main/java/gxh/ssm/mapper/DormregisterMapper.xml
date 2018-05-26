@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gxh.ssm.mapper.DormregisterMapper" >
+  <resultMap id="BaseResultMap" type="gxh.ssm.po.Dormregister" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dr_data" property="drData" jdbcType="DATE" />
+    <result column="sno" property="sno" jdbcType="VARCHAR" />
+    <result column="dorm_id" property="dormId" jdbcType="INTEGER" />
+    <result column="nowdorm" property="nowdorm" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, dr_data, sno, dorm_id, nowdorm, state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="gxh.ssm.po.DormregisterExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dormregister
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dormregister
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dormregister
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="gxh.ssm.po.DormregisterExample" >
+    delete from dormregister
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="gxh.ssm.po.Dormregister" >
+    insert into dormregister (id, dr_data, sno, 
+      dorm_id, nowdorm, state
+      )
+    values (#{id,jdbcType=INTEGER}, #{drData,jdbcType=DATE}, #{sno,jdbcType=VARCHAR}, 
+      #{dormId,jdbcType=INTEGER}, #{nowdorm,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="gxh.ssm.po.Dormregister" >
+    insert into dormregister
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="drData != null" >
+        dr_data,
+      </if>
+      <if test="sno != null" >
+        sno,
+      </if>
+      <if test="dormId != null" >
+        dorm_id,
+      </if>
+      <if test="nowdorm != null" >
+        nowdorm,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="drData != null" >
+        #{drData,jdbcType=DATE},
+      </if>
+      <if test="sno != null" >
+        #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="dormId != null" >
+        #{dormId,jdbcType=INTEGER},
+      </if>
+      <if test="nowdorm != null" >
+        #{nowdorm,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="gxh.ssm.po.DormregisterExample" resultType="java.lang.Integer" >
+    select count(*) from dormregister
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dormregister
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.drData != null" >
+        dr_data = #{record.drData,jdbcType=DATE},
+      </if>
+      <if test="record.sno != null" >
+        sno = #{record.sno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dormId != null" >
+        dorm_id = #{record.dormId,jdbcType=INTEGER},
+      </if>
+      <if test="record.nowdorm != null" >
+        nowdorm = #{record.nowdorm,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dormregister
+    set id = #{record.id,jdbcType=INTEGER},
+      dr_data = #{record.drData,jdbcType=DATE},
+      sno = #{record.sno,jdbcType=VARCHAR},
+      dorm_id = #{record.dormId,jdbcType=INTEGER},
+      nowdorm = #{record.nowdorm,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="gxh.ssm.po.Dormregister" >
+    update dormregister
+    <set >
+      <if test="drData != null" >
+        dr_data = #{drData,jdbcType=DATE},
+      </if>
+      <if test="sno != null" >
+        sno = #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="dormId != null" >
+        dorm_id = #{dormId,jdbcType=INTEGER},
+      </if>
+      <if test="nowdorm != null" >
+        nowdorm = #{nowdorm,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="gxh.ssm.po.Dormregister" >
+    update dormregister
+    set dr_data = #{drData,jdbcType=DATE},
+      sno = #{sno,jdbcType=VARCHAR},
+      dorm_id = #{dormId,jdbcType=INTEGER},
+      nowdorm = #{nowdorm,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

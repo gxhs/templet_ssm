@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gxh.ssm.mapper.DormMapper" >
+  <resultMap id="BaseResultMap" type="gxh.ssm.po.Dorm" >
+    <id column="dorm_id" property="dormId" jdbcType="INTEGER" />
+    <result column="shouldpeople" property="shouldpeople" jdbcType="INTEGER" />
+    <result column="nowpeople" property="nowpeople" jdbcType="INTEGER" />
+    <result column="dormitory" property="dormitory" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dorm_id, shouldpeople, nowpeople, dormitory
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="gxh.ssm.po.DormExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dorm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dorm
+    where dorm_id = #{dormId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dorm
+    where dorm_id = #{dormId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="gxh.ssm.po.DormExample" >
+    delete from dorm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="gxh.ssm.po.Dorm" >
+    insert into dorm (dorm_id, shouldpeople, nowpeople, 
+      dormitory)
+    values (#{dormId,jdbcType=INTEGER}, #{shouldpeople,jdbcType=INTEGER}, #{nowpeople,jdbcType=INTEGER}, 
+      #{dormitory,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="gxh.ssm.po.Dorm" >
+    insert into dorm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dormId != null" >
+        dorm_id,
+      </if>
+      <if test="shouldpeople != null" >
+        shouldpeople,
+      </if>
+      <if test="nowpeople != null" >
+        nowpeople,
+      </if>
+      <if test="dormitory != null" >
+        dormitory,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dormId != null" >
+        #{dormId,jdbcType=INTEGER},
+      </if>
+      <if test="shouldpeople != null" >
+        #{shouldpeople,jdbcType=INTEGER},
+      </if>
+      <if test="nowpeople != null" >
+        #{nowpeople,jdbcType=INTEGER},
+      </if>
+      <if test="dormitory != null" >
+        #{dormitory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="gxh.ssm.po.DormExample" resultType="java.lang.Integer" >
+    select count(*) from dorm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dorm
+    <set >
+      <if test="record.dormId != null" >
+        dorm_id = #{record.dormId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shouldpeople != null" >
+        shouldpeople = #{record.shouldpeople,jdbcType=INTEGER},
+      </if>
+      <if test="record.nowpeople != null" >
+        nowpeople = #{record.nowpeople,jdbcType=INTEGER},
+      </if>
+      <if test="record.dormitory != null" >
+        dormitory = #{record.dormitory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dorm
+    set dorm_id = #{record.dormId,jdbcType=INTEGER},
+      shouldpeople = #{record.shouldpeople,jdbcType=INTEGER},
+      nowpeople = #{record.nowpeople,jdbcType=INTEGER},
+      dormitory = #{record.dormitory,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="gxh.ssm.po.Dorm" >
+    update dorm
+    <set >
+      <if test="shouldpeople != null" >
+        shouldpeople = #{shouldpeople,jdbcType=INTEGER},
+      </if>
+      <if test="nowpeople != null" >
+        nowpeople = #{nowpeople,jdbcType=INTEGER},
+      </if>
+      <if test="dormitory != null" >
+        dormitory = #{dormitory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dorm_id = #{dormId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="gxh.ssm.po.Dorm" >
+    update dorm
+    set shouldpeople = #{shouldpeople,jdbcType=INTEGER},
+      nowpeople = #{nowpeople,jdbcType=INTEGER},
+      dormitory = #{dormitory,jdbcType=VARCHAR}
+    where dorm_id = #{dormId,jdbcType=INTEGER}
+  </update>
+</mapper>
